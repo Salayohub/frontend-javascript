@@ -1,19 +1,17 @@
-// Define the Director interface with the specified methods
+// Define interfaces
 interface DirectorInterface {
   workFromHome(): string;
   getCoffeeBreak(): string;
   workDirectorTasks(): string;
 }
 
-// Define the Teacher interface with the specified methods
 interface TeacherInterface {
   workFromHome(): string;
   getCoffeeBreak(): string;
   workTeacherTasks(): string;
-
 }
 
-// Implement the Director class
+// Implement Director class
 class Director implements DirectorInterface {
   workFromHome(): string {
     return "Working from home";
@@ -26,7 +24,7 @@ class Director implements DirectorInterface {
   }
 }
 
-// implimenting the teacher class
+// Implement Teacher class
 class Teacher implements TeacherInterface {
   workFromHome(): string {
     return "Cannot work from home";
@@ -39,38 +37,21 @@ class Teacher implements TeacherInterface {
   }
 }
 
-// Function the checker wants
-function createEmployee(salary: number): DirectorInterface | TeacherInterface {
-  if (salary < 500) {
-    return new Teacher();
-  }
+// Function to create employee
+export function createEmployee(salary: number | string): Director | Teacher {
+  if (typeof salary === "number" && salary < 500) return new Teacher();
   return new Director();
 }
 
-// Type predicate
-function isDirector(employee: DirectorInterface | TeacherInterface): employee is Director {
+// ✅ Function to check if employee is a Director
+export function isDirector(employee: Director | Teacher): employee is Director {
   return employee instanceof Director;
 }
 
-// Execute work
-function executeWork(employee: DirectorInterface | TeacherInterface): string {
+// Function to execute work
+export function executeWork(employee: Director | Teacher): string {
   if (isDirector(employee)) {
     return employee.workDirectorTasks();
   }
   return employee.workTeacherTasks();
 }
-
-// String literal type
-type Subjects = "Math" | "History";
-
-// Function teachClass
-function teachClass(todayClass:Subjects): string {
-  if (todayClass === "Math") {
-    return "Teaching Math";
-  }
-  return "Teaching History";
-}
-
-console.log(createEmployee(200));
-console.log(createEmployee(1000));
-console.log(createEmployee(500));
