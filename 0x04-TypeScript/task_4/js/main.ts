@@ -8,9 +8,10 @@ const cpp = new Cpp();
 const java = new Java();
 const react = new React();
 
-const cTeacher:Teacher = {
+const cTeacher: Teacher = {
   firstName: "John",
   lastName: "Doe",
+  experienceTeachingC: 10,
 };
 
 // Cpp
